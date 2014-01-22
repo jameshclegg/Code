@@ -37,3 +37,47 @@ Slewxy -6000 -6000 200
 Slewxy -6000 6000 200
 Repeat
 End
+
+CreatePGM 1 'v'
+Slewxy 6000 6000 800
+Slewxy 6000 -6000 800
+Slewxy -6000 -6000 800
+Slewxy -6000 6000 800
+Repeat
+End
+
+CreatePGM 1 'w'
+Slewxy 6000 6000 50
+Slewxy 6000 -6000 50
+Slewxy -6000 -6000 50
+Slewxy -6000 6000 50
+Repeat
+End
+
+CreatePGM 1 'x'
+Slewxy 0 0 150
+Positionxy 0 4000
+Slewxy 6000 4000 150
+Slewxy 6000 -1000 125
+Slewxy -6000 -1000 300
+Slewxy -6000 0 25
+Repeat
+End
+
+CreatePGM 1 'y'
+Slewxy 0 0 150
+Positionxy 4000 0
+Slewxy 4000 6000 150
+Slewxy -1000 6000 125
+Slewxy -1000 -6000 300
+Slewxy 0 -6000 25
+Repeat
+End
+
+CreatePGM 1 'z'
+Slewxy 2000 2000 600
+Slewxy 2000 -2000 600
+Slewxy -2000 -2000 600
+Slewxy -2000 2000 600
+Repeat
+End
