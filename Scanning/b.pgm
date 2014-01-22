@@ -1,0 +1,5 @@
+CreatePGM 1 'b'
+Slewxy 32767 32767 16000
+Slewxy -32768 -32768 16000
+Repeat
+End

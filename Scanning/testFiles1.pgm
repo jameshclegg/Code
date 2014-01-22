@@ -1,0 +1,39 @@
+CreatePGM 1 'p'
+Slewxy 10000 10000 32000
+Slewxy -10000 -10000 32000
+Repeat
+End
+
+CreatePGM 1 'q'
+Slewxy 32767 32767 1000
+Slewxy -32767 -32767 1000
+Repeat
+End
+
+CreatePGM 1 'r'
+Slewxy 32767 32767 1000
+Slewxy 0 0 1000
+Repeat
+End
+
+CreatePGM 1 's'
+Slewxy 32767 32767 32766
+Slewxy -32767 -32767 32766
+Repeat
+End
+
+CreatePGM 1 't'
+Slewxy 6000 6000 2000
+Slewxy 6000 -6000 2000
+Slewxy -6000 -6000 2000
+Slewxy -6000 6000 2000
+Repeat
+End
+
+CreatePGM 1 'u'
+Slewxy 6000 6000 200
+Slewxy 6000 -6000 200
+Slewxy -6000 -6000 200
+Slewxy -6000 6000 200
+Repeat
+End
