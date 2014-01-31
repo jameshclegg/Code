@@ -7,7 +7,7 @@ obj1 = serial( 'COM1', 'BaudRate', 2400 );
 %obj1 = fopen( 'outputFileTest.txt' , 'w+' );
 
 if isa( obj1, 'serial' )
-    set( obj1, 'ByteOrder', 'bigEndian' );
+    %set( obj1, 'ByteOrder', 'bigEndian' );
     set( obj1, 'FlowControl', 'software' );
     set( obj1, 'TimeOut', 1);
 end
@@ -22,9 +22,8 @@ disp( rxdata_dec );
 
 %rxdata = dec2hex( rxdata_dec );
 
-fwrite( obj1, hex2dec( ['14'] ), 'uint8' );
-fwrite( obj1, hex2dec( ['00'] ), 'uint8' );
-fwrite( obj1, hex2dec( ['01'] ), 'uint8' );
+fwrite( obj1, hex2dec( ['14';'00';'01'] ).', 'uint8' );
+%fwrite(obj1, hex2dec( ['68';'65';'6c';'6c';'6f';'20';'6a';'61';'6d';'65';'73'] ).', 'uint8');
 
 fclose( obj1 );
 
