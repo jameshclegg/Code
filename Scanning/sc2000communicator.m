@@ -6,7 +6,7 @@ classdef sc2000communicator
     
     properties
         initialBaudRate = 2400;
-        baudRate = 115200;
+        baudRate = '7';
         
         dictionary
         
@@ -23,12 +23,24 @@ classdef sc2000communicator
             % constructor method.
             
             self.serialObj = serial( 'COM1', 'BaudRate', 2400 );
+            set( self.serialObj, 'FlowControl', 'software' );
+            set( self.serialObj, 'TimeOut', 1);
             
         end
         
         function self = openConnection( self )
             
            fopen( self.serialObj );
+           fprintf( 'Serial port is %s\n' , get( self.serialObj, 'Status' ))
+           
+        end
+        
+        function self = setBaudRate( self, newRate )
+            
+           fprintf( 'Setting baud rate to %i\n', newRate )
+           comConfig = sprintf( '23000%s00080001000000E8', newRate );
+           self = writeData( self, comConfig );
+           set( self.serialObj, 'BaudRate', 115200 );
            
         end
         
