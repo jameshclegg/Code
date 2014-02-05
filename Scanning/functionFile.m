@@ -11,19 +11,23 @@ classdef functionFile
         inputParams
         inputParamTypes
         context
-        readback
+        rxDataBytes
         
     end
     
     properties (Access = private)
         
-        subDir = 'dictionary/';
+        subDir = '@SC2000Communicator/';
         
+        communicatorObjName = 'self';
         serialObjName = 'serialObj';
-        outputName = 'rxData';
+        rxName = 'rxData';
+        rxBytesName = 'rxBytes';
         commandBitName = 'commandBit';
         bitMode = '''uint8''';
         txDataName = 'txData';
+        
+        fid
 
     end
     
@@ -31,17 +35,30 @@ classdef functionFile
         function self = writeFile( self )
             
             %open the file
-            fid = fopen( sprintf( '%s%s.m', self.subDir, self.fnName ) , 'w' );
+            self.fid = fopen( sprintf( '%s%s.m', self.subDir, self.fnName ) , 'w' );
             
-            if self.readback == 0
+            writeTopLine( self )
+            writeComments( self )
+            writeCommands( self )
+            
+            fprintf( self.fid, 'end' );
+                       
+            fclose( self.fid );
+        end
+    end
+    
+    methods (Access = private)
+        function writeTopLine( self )
+            
+            if self.rxDataBytes == 0
                 outputStr = '';
             else
-                outputStr = sprintf( '%s = ', self.outputName );
+                outputStr = sprintf( '%s = ', self.rxName );
             end
             
             %%%%%%%%%%%%%%%%%%%%
             % print function name
-            inputStr = [ ' ', self.serialObjName, ', '];
+            inputStr = [ ' ', self.communicatorObjName, ', '];
             for ii = 1:self.nInputs
                 inputStr = sprintf( '%s%s, ', inputStr, self.inputParams{ii} );
             end
@@ -50,17 +67,18 @@ classdef functionFile
             inputStr = [inputStr(1:end-2), ' '];
             
             firstLineStr = sprintf( 'function %s%s(%s)\n', outputStr, self.fnName, inputStr );
-            fprintf( fid, firstLineStr );
+            fprintf( self.fid, firstLineStr );
             
-            %%%%%%%%%%%%%%%%%%%%
-            % print comments
+        end
+        
+        function writeComments( self )
             
             % print first comments line
-            fprintf( fid, '\t%% %s\n', upper( self.fnName ) );
+            fprintf( self.fid, '\t%% %s\n', upper( self.fnName ) );
             
             % print inputs information to comments
-            fprintf( fid, '\t%% Number of inputs: %i\n', self.nInputs+1 );
-            fprintf( fid, '\t%%\t Input 1: serial port object in open state\n' );
+            fprintf( self.fid, '\t%% Number of inputs: %i\n', self.nInputs+1 );
+            fprintf( self.fid, '\t%%\t Input 1: self.serialObj is an open serial port\n' );
             if self.nInputs ~=0 
                 
                 for jj = 1:self.nInputs
@@ -70,61 +88,67 @@ classdef functionFile
                         article = 'a';
                     end
                     
-                    fprintf( fid, '\t%%\t Input %i: %s is %s %s\n', jj+1, self.inputParams{jj}, article, self.inputParamTypes{jj} );
+                    fprintf( self.fid, '\t%%\t Input %i: %s is %s %s\n', jj+1, self.inputParams{jj}, article, self.inputParamTypes{jj} );
                 end
             else
-                fprintf( fid, '\n' );
+                fprintf( self.fid, '\n' );
             end
             
             % print the context
-            fprintf( fid, '\t%% For use in %s mode.\n', self.context );
+            fprintf( self.fid, '\t%% For use in %s mode.\n', self.context );
             
             % print the number of bytes to be read
-            if self.readback ~= 0
-                fprintf( fid, '\t%% %i bytes of rxData\n\n', self.readback);
+            if self.rxDataBytes ~= 0
+                fprintf( self.fid, '\t%% %i bytes of rxData\n\n', self.rxDataBytes);
             else
-                fprintf( fid, '\n' );
+                fprintf( self.fid, '\n' );
             end
             
             % print info
-            fprintf( fid, '\t%% Generated automatically using functionFile.m class.\n' );
-            fprintf( fid, '\t%% Source dictionary is at the end of SC2000 command reference document.\n\n' );
-            fprintf( fid, '\t%% %s. James Clegg.\n\n\n', datestr( date, 'dd mmmm yyyy' ) );
+            fprintf( self.fid, '\t%% Generated automatically by functionFile.m class.\n' );
+            fprintf( self.fid, '\t%% Source dictionary is at the end of SC2000 command reference document.\n\n' );
+            fprintf( self.fid, '\t%% %s. James Clegg.\n\n\n', datestr( date, 'dd mmmm yyyy' ) );
             
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%
-            % print the commands
+        end
+        
+        function writeCommands( self )
             
-            fprintf( fid, '%s = %i; \n\n', self.commandBitName, self.decID );
+            fprintf( self.fid, '%s = %s.%s; \n', self.serialObjName, self.communicatorObjName, self.serialObjName );
+            fprintf( self.fid, '%s = %i; \n', self.commandBitName, self.decID );
+            
+            if self.rxDataBytes ~= 0
+                fprintf( self.fid, '%s = %i; \n\n', self.rxBytesName, self.rxDataBytes );
+            else
+                fprintf( self.fid, '\n' );
+            end
             
             strToWrite = [];
             % one bit to send for each input
             for kk = 1:self.nInputs
                 
-                fprintf( fid, 'b%i = hex2dec( reshape( dec2hex( %s, 4 ), 2, 2 )).'';\n' , kk, self.inputParams{kk});
+                fprintf( self.fid, 'b%i = hex2dec( reshape( dec2hex( %s, 4 ), 2, 2 )).'';\n' , kk, self.inputParams{kk});
                 strToWrite = sprintf( '%s, b%i', strToWrite, kk );
             
             end
-            fprintf( fid, '\n' );
+            fprintf( self.fid, '\n' );
+            
             %remove first comma
             strToWrite = strToWrite(2:end);
             
             if self.nInputs ~= 0
-                fprintf( fid, '%s = [ %s,%s ];\n\n', self.txDataName, self.commandBitName, strToWrite );
+                fprintf( self.fid, '%s = [ %s,%s ];\n\n', self.txDataName, self.commandBitName, strToWrite );
             else
-                fprintf( fid, '%s = %i;\n\n', self.txDataName, self.decID );
+                fprintf( self.fid, '%s = %s;\n\n', self.txDataName, self.commandBitName );
             end
-            fprintf( fid, 'fwrite( %s, %s, %s ); \n\n', self.serialObjName, self.txDataName, self.bitMode );
+            fprintf( self.fid, 'fwrite( %s, %s, %s ); \n\n', self.serialObjName, self.txDataName, self.bitMode );
              
             % if there is an output, read it from the serial port
-            if self.readback ~= 0
-                fprintf( fid, '%s = fread( %s, %i ); \n\n', self.outputName, self.serialObjName, self.readback);
+            if self.rxDataBytes ~= 0
+                fprintf( self.fid, '%s = fread( %s, %s ); \n\n', self.rxName, self.serialObjName, self.rxBytesName );
             end
             
-            
-            fprintf( fid, 'end' );
-            
-            fclose( fid );
         end
+        
     end
     
 end

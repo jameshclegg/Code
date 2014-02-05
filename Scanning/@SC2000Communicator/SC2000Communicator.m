@@ -1,4 +1,4 @@
-classdef sc2000communicator
+classdef SC2000Communicator
     %SC2000COMMUNICATOR is a class for talking to the SC2000 scan control
     %board
     %   
@@ -7,8 +7,6 @@ classdef sc2000communicator
     properties
         initialBaudRate = 2400;
         baudRate = '7';
-        
-        dictionary
         
         serialObj
     end
@@ -19,11 +17,11 @@ classdef sc2000communicator
     end
     
     methods
-        function self = sc2000communicator()
+        function self = SC2000Communicator()
             % constructor method.
             
             self.serialObj = serial( 'COM1', 'BaudRate', 2400 );
-            set( self.serialObj, 'FlowControl', 'software' );
+            set( self.serialObj, 'FlowControl', 'hardware' );
             set( self.serialObj, 'TimeOut', 1);
             
         end

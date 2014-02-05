@@ -39,7 +39,7 @@ classdef SC2000commandMaker
             
             self.nCommands = numel( self.commandTable );
             
-            self.commandList = cellfun( @(c) strsplit( c, ':'), self.commandTable , 'UniformOutput', 0);
+            self.commandList = cellfun( @(c) regexp( c, ':', 'split' ), self.commandTable , 'UniformOutput', 0);
             
         end
        
@@ -84,7 +84,7 @@ classdef SC2000commandMaker
             nameList = cell2mat( self.commandList{ii}(4) ); 
             
             % split into a cell array for each input variable
-            nameListCell = strsplit( nameList, ' ' );
+            nameListCell = regexp( nameList, ' ', 'split' );
             % remove first and last double quotes
             nameListCell{1} = nameListCell{1}(2:end);
             nameListCell{end} = nameListCell{end}(1:end-1);
@@ -157,7 +157,7 @@ classdef SC2000commandMaker
             end
             
             % get the number of bytes to read back
-            f.readback = str2double( cell2mat(self.commandList{ii}(6)) );
+            f.rxDataBytes = str2double( cell2mat(self.commandList{ii}(6)) );
             
             fnFile = f;
         end

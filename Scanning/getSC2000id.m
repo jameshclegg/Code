@@ -8,7 +8,7 @@ obj1 = serial( 'COM1', 'BaudRate', 2400 );
 
 if isa( obj1, 'serial' )
     %set( obj1, 'ByteOrder', 'bigEndian' );
-    set( obj1, 'FlowControl', 'software' );
+    set( obj1, 'FlowControl', 'hardware' );
     set( obj1, 'TimeOut', 1);
 end
 
