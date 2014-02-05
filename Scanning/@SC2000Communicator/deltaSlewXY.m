@@ -16,9 +16,9 @@ function deltaSlewXY( self, xRELOFFSET, yRELOFFSET, COUNT )
 serialObj = self.serialObj; 
 commandBit = 8; 
 
-b1 = hex2dec( reshape( dec2hex( xRELOFFSET, 4 ), 2, 2 )).';
-b2 = hex2dec( reshape( dec2hex( yRELOFFSET, 4 ), 2, 2 )).';
-b3 = hex2dec( reshape( dec2hex( COUNT, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( xRELOFFSET, 4 ), 2, 2 ).').';
+b2 = hex2dec( reshape( dec2hex( yRELOFFSET, 4 ), 2, 2 ).').';
+b3 = hex2dec( reshape( dec2hex( COUNT, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1, b2, b3 ];
 

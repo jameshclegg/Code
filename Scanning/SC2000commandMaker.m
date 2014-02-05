@@ -46,11 +46,15 @@ classdef SC2000commandMaker
         function makeFunctionFiles( self )
             
             for ii = 1:self.nCommands
-            %ii = 9;
+
+            f = getFnParams( self, ii );
             
-                f = functionFile;
-                f = getFnParams( self, ii );
-                f = f.writeFile();
+                switch f.fnName
+                    case 'status'
+                        warning( 'status has not been written because it requires manual changes' )
+                    otherwise
+                        f.writeFile();
+                end
             
             end
             

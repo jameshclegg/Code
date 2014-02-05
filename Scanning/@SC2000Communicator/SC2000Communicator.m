@@ -5,70 +5,61 @@ classdef SC2000Communicator
     % 31.01.14. James Clegg.
     
     properties
-        initialBaudRate = 2400;
-        baudRate = '7';
+        baudRate = 115200;
         
         serialObj
     end
     
-    properties (SetAccess = private)
-        lastTx
-        lastRx
+    properties (Access = private)
+        initialBaudRate = 2400;
     end
     
     methods
         function self = SC2000Communicator()
             % constructor method.
             
+            sObjs = instrfind( 'Port', 'COM1' );
+            if ~isempty( sObjs )
+                fclose( sObjs );
+                delete( sObjs );
+            end
+                        
             self.serialObj = serial( 'COM1', 'BaudRate', 2400 );
             set( self.serialObj, 'FlowControl', 'hardware' );
             set( self.serialObj, 'TimeOut', 1);
             
         end
         
-        function self = openConnection( self )
+        function self = open( self )
             
            fopen( self.serialObj );
            fprintf( 'Serial port is %s\n' , get( self.serialObj, 'Status' ))
            
         end
         
-        function self = setBaudRate( self, newRate )
+        function self = setBaudRate( self, newRateDec )
+           
+           baudRates = 2400*[1 2 4 8 16 24 48];
+           baudBytes =  num2str( (1:7).' );
+           
+           newRateByte = str2double( baudBytes(  baudRates==newRateDec ) );
             
-           fprintf( 'Setting baud rate to %i\n', newRate )
-           comConfig = sprintf( '23000%s00080001000000E8', newRate );
-           self = writeData( self, comConfig );
-           set( self.serialObj, 'BaudRate', 115200 );
+           fprintf( 'Setting baud rate to %i, id %i\n', newRateDec, newRateByte )
+
+           self.comConfig( newRateByte, 8, 1, 0, 232 );
+           
+           set( self.serialObj, 'BaudRate', newRateDec );
            
         end
         
-        function self = closeConnection( self )
-            
+        function self = close( self )
             fclose( self.serialObj );
-            delete( self.serialObj );
-            
         end
         
-        function self = writeData( self, hexInput )
-            % hexInput is a string - we must convert it into hex pairs for
-            % conversion to 8 bit integers.
-            hexInput = reshape( hexInput, 2, numel(hexInput)/2 ).';
-            
-            txData = hex2dec( hexInput ).';
-            
-            self.lastTx = txData;   
-            
-            fwrite( self.serialObj, txData, 'uint8' );
-            
+        function self = delete( self )
+            delete( self.serialObj ) 
         end
-        
-        function self = readData( self )
-            
-            rxData = fread( self.serialObj );
-            
-            self.lastRx = rxData;
-            
-        end
+                
     end
     
 end

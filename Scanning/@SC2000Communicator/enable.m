@@ -14,7 +14,7 @@ function enable( self, DEVICEID )
 serialObj = self.serialObj; 
 commandBit = 20; 
 
-b1 = hex2dec( reshape( dec2hex( DEVICEID, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( DEVICEID, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 

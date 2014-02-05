@@ -15,8 +15,8 @@ function iftempokexecutepgm( self, DEVICEID, PGMID )
 serialObj = self.serialObj; 
 commandBit = 12; 
 
-b1 = hex2dec( reshape( dec2hex( DEVICEID, 4 ), 2, 2 )).';
-b2 = hex2dec( reshape( dec2hex( PGMID, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( DEVICEID, 4 ), 2, 2 ).').';
+b2 = hex2dec( reshape( dec2hex( PGMID, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1, b2 ];
 

@@ -14,7 +14,7 @@ function setSync( self, CHANMASK )
 serialObj = self.serialObj; 
 commandBit = 18; 
 
-b1 = hex2dec( reshape( dec2hex( CHANMASK, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( CHANMASK, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 

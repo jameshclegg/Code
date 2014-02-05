@@ -14,7 +14,7 @@ function dumpDataMem( self, WORD )
 serialObj = self.serialObj; 
 commandBit = 61; 
 
-b1 = hex2dec( reshape( dec2hex( WORD, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( WORD, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 

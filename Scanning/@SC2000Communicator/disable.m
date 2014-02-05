@@ -14,7 +14,7 @@ function disable( self, DEVICEID )
 serialObj = self.serialObj; 
 commandBit = 21; 
 
-b1 = hex2dec( reshape( dec2hex( DEVICEID, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( DEVICEID, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 

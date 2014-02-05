@@ -17,10 +17,10 @@ function transformAxis( self, xROTA, xROTB, yROTB, yROTA )
 serialObj = self.serialObj; 
 commandBit = 63; 
 
-b1 = hex2dec( reshape( dec2hex( xROTA, 4 ), 2, 2 )).';
-b2 = hex2dec( reshape( dec2hex( xROTB, 4 ), 2, 2 )).';
-b3 = hex2dec( reshape( dec2hex( yROTB, 4 ), 2, 2 )).';
-b4 = hex2dec( reshape( dec2hex( yROTA, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( xROTA, 4 ), 2, 2 ).').';
+b2 = hex2dec( reshape( dec2hex( xROTB, 4 ), 2, 2 ).').';
+b3 = hex2dec( reshape( dec2hex( yROTB, 4 ), 2, 2 ).').';
+b4 = hex2dec( reshape( dec2hex( yROTA, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1, b2, b3, b4 ];
 

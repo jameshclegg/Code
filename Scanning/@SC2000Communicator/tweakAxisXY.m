@@ -17,10 +17,10 @@ function tweakAxisXY( self, xGAIN, xRELOFFSET, yGAIN, yRELOFFSET )
 serialObj = self.serialObj; 
 commandBit = 28; 
 
-b1 = hex2dec( reshape( dec2hex( xGAIN, 4 ), 2, 2 )).';
-b2 = hex2dec( reshape( dec2hex( xRELOFFSET, 4 ), 2, 2 )).';
-b3 = hex2dec( reshape( dec2hex( yGAIN, 4 ), 2, 2 )).';
-b4 = hex2dec( reshape( dec2hex( yRELOFFSET, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( xGAIN, 4 ), 2, 2 ).').';
+b2 = hex2dec( reshape( dec2hex( xRELOFFSET, 4 ), 2, 2 ).').';
+b3 = hex2dec( reshape( dec2hex( yGAIN, 4 ), 2, 2 ).').';
+b4 = hex2dec( reshape( dec2hex( yRELOFFSET, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1, b2, b3, b4 ];
 

@@ -126,7 +126,7 @@ classdef functionFile
             % one bit to send for each input
             for kk = 1:self.nInputs
                 
-                fprintf( self.fid, 'b%i = hex2dec( reshape( dec2hex( %s, 4 ), 2, 2 )).'';\n' , kk, self.inputParams{kk});
+                fprintf( self.fid, 'b%i = hex2dec( reshape( dec2hex( %s, 4 ), 2, 2 ).'').'';\n' , kk, self.inputParams{kk});
                 strToWrite = sprintf( '%s, b%i', strToWrite, kk );
             
             end

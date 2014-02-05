@@ -14,7 +14,7 @@ function wait( self, DBLWORD )
 serialObj = self.serialObj; 
 commandBit = 16; 
 
-b1 = hex2dec( reshape( dec2hex( DBLWORD, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( DBLWORD, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 

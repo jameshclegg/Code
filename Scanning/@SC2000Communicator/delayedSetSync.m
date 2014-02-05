@@ -14,7 +14,7 @@ function delayedSetSync( self, CHANMASK )
 serialObj = self.serialObj; 
 commandBit = 54; 
 
-b1 = hex2dec( reshape( dec2hex( CHANMASK, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( CHANMASK, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 

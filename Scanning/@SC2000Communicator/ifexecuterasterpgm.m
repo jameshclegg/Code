@@ -16,9 +16,9 @@ function ifexecuterasterpgm( self, CHANID, xPGMID, yPGMID )
 serialObj = self.serialObj; 
 commandBit = 11; 
 
-b1 = hex2dec( reshape( dec2hex( CHANID, 4 ), 2, 2 )).';
-b2 = hex2dec( reshape( dec2hex( xPGMID, 4 ), 2, 2 )).';
-b3 = hex2dec( reshape( dec2hex( yPGMID, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( CHANID, 4 ), 2, 2 ).').';
+b2 = hex2dec( reshape( dec2hex( xPGMID, 4 ), 2, 2 ).').';
+b3 = hex2dec( reshape( dec2hex( yPGMID, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1, b2, b3 ];
 

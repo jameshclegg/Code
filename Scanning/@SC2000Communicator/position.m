@@ -16,7 +16,7 @@ serialObj = self.serialObj;
 commandBit = 42; 
 rxBytes = 2; 
 
-b1 = hex2dec( reshape( dec2hex( AXIS, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( AXIS, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 

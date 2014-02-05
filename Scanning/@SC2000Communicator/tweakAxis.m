@@ -15,8 +15,8 @@ function tweakAxis( self, GAIN, RELOFFSET )
 serialObj = self.serialObj; 
 commandBit = 27; 
 
-b1 = hex2dec( reshape( dec2hex( GAIN, 4 ), 2, 2 )).';
-b2 = hex2dec( reshape( dec2hex( RELOFFSET, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( GAIN, 4 ), 2, 2 ).').';
+b2 = hex2dec( reshape( dec2hex( RELOFFSET, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1, b2 ];
 

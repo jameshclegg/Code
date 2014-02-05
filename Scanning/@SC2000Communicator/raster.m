@@ -14,7 +14,7 @@ function raster( self, RASTERVAL )
 serialObj = self.serialObj; 
 commandBit = 25; 
 
-b1 = hex2dec( reshape( dec2hex( RASTERVAL, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( RASTERVAL, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 

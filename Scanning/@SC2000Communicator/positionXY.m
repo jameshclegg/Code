@@ -15,8 +15,8 @@ function positionXY( self, xABSPOS, yABSPOS )
 serialObj = self.serialObj; 
 commandBit = 2; 
 
-b1 = hex2dec( reshape( dec2hex( xABSPOS, 4 ), 2, 2 )).';
-b2 = hex2dec( reshape( dec2hex( yABSPOS, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( xABSPOS, 4 ), 2, 2 ).').';
+b2 = hex2dec( reshape( dec2hex( yABSPOS, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1, b2 ];
 

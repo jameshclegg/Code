@@ -16,9 +16,9 @@ function flipExchangeAxis( self, BOOL, BOOL, BOOL )
 serialObj = self.serialObj; 
 commandBit = 62; 
 
-b1 = hex2dec( reshape( dec2hex( BOOL, 4 ), 2, 2 )).';
-b2 = hex2dec( reshape( dec2hex( BOOL, 4 ), 2, 2 )).';
-b3 = hex2dec( reshape( dec2hex( BOOL, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( BOOL, 4 ), 2, 2 ).').';
+b2 = hex2dec( reshape( dec2hex( BOOL, 4 ), 2, 2 ).').';
+b3 = hex2dec( reshape( dec2hex( BOOL, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1, b2, b3 ];
 

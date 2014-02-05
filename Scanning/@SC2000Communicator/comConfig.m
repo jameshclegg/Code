@@ -18,11 +18,11 @@ function comConfig( self, BAUD, DATABITS, STOPBITS, PARITY, COMTYPE )
 serialObj = self.serialObj; 
 commandBit = 35; 
 
-b1 = hex2dec( reshape( dec2hex( BAUD, 4 ), 2, 2 )).';
-b2 = hex2dec( reshape( dec2hex( DATABITS, 4 ), 2, 2 )).';
-b3 = hex2dec( reshape( dec2hex( STOPBITS, 4 ), 2, 2 )).';
-b4 = hex2dec( reshape( dec2hex( PARITY, 4 ), 2, 2 )).';
-b5 = hex2dec( reshape( dec2hex( COMTYPE, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( BAUD, 4 ), 2, 2 ).').';
+b2 = hex2dec( reshape( dec2hex( DATABITS, 4 ), 2, 2 ).').';
+b3 = hex2dec( reshape( dec2hex( STOPBITS, 4 ), 2, 2 ).').';
+b4 = hex2dec( reshape( dec2hex( PARITY, 4 ), 2, 2 ).').';
+b5 = hex2dec( reshape( dec2hex( COMTYPE, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1, b2, b3, b4, b5 ];
 

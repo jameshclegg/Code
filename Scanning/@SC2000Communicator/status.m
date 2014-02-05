@@ -6,7 +6,10 @@ function rxData = status( self )
 	% For use in N/A mode.
 	% 6 bytes of rxData
 
-	% Generated automatically by functionFile.m class.
+	% Generated automatically by functionFile.m class, then edited by me
+	% because this command has a peculiar requirement to send the FF byte 8
+	% times.
+    
 	% Source dictionary is at the end of SC2000 command reference document.
 
 	% 05 February 2014. James Clegg.
@@ -17,7 +20,7 @@ commandBit = 255;
 rxBytes = 6; 
 
 
-txData = commandBit;
+txData = repmat( commandBit, 1, 9 );
 
 fwrite( serialObj, txData, 'uint8' ); 
 

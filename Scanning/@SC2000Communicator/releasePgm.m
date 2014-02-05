@@ -14,7 +14,7 @@ function releasePgm( self, PGMID )
 serialObj = self.serialObj; 
 commandBit = 34; 
 
-b1 = hex2dec( reshape( dec2hex( PGMID, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( PGMID, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 

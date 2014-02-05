@@ -14,7 +14,7 @@ function setXPRGain( self, GAIN )
 serialObj = self.serialObj; 
 commandBit = 48; 
 
-b1 = hex2dec( reshape( dec2hex( GAIN, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( GAIN, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 

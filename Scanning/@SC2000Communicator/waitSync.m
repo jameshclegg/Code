@@ -14,7 +14,7 @@ function waitSync( self, CHANID )
 serialObj = self.serialObj; 
 commandBit = 17; 
 
-b1 = hex2dec( reshape( dec2hex( CHANID, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( CHANID, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 

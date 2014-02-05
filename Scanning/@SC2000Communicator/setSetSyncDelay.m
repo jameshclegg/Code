@@ -14,7 +14,7 @@ function setSetSyncDelay( self, SYNCDELAY )
 serialObj = self.serialObj; 
 commandBit = 48; 
 
-b1 = hex2dec( reshape( dec2hex( SYNCDELAY, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( SYNCDELAY, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 

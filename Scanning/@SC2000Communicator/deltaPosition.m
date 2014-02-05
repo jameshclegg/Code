@@ -14,7 +14,7 @@ function deltaPosition( self, RELOFFSET )
 serialObj = self.serialObj; 
 commandBit = 3; 
 
-b1 = hex2dec( reshape( dec2hex( RELOFFSET, 4 ), 2, 2 )).';
+b1 = hex2dec( reshape( dec2hex( RELOFFSET, 4 ), 2, 2 ).').';
 
 txData = [ commandBit, b1 ];
 
