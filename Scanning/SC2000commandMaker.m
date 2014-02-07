@@ -8,10 +8,39 @@ classdef SC2000commandMaker
         wholeFile
         commandList
         commandTable
+        newNameList
         nCommands
     end
     
     methods
+        function self = SC2000commandMaker()
+            
+            self = readInFile( self );
+            self = getCommandList( self );
+            self = getNewFnNames( self );
+            
+        end
+        
+        function self = makeFunctionFiles( self )
+            
+            for ii = 1:self.nCommands
+
+            f = getFnParams( self, ii );
+            
+                switch f.fnName
+                    case 'status'
+                        warning( 'status has not been written because it requires manual changes' )
+                    otherwise
+                        f.writeFile();
+                end
+            
+            end
+            
+        end
+
+    end
+    
+    methods (Access = private)
         function self = readInFile( self )
             
             f1 = fopen( self.fileName, 'r' );
@@ -35,54 +64,24 @@ classdef SC2000commandMaker
             nonEmpties = ~cellfun( @isempty, fullCommandTable );
             
             % the command list is the non empty values from fullCommandList
-            self.commandTable = fullCommandTable( nonEmpties );
+            unSplitTable = fullCommandTable( nonEmpties );
             
-            self.nCommands = numel( self.commandTable );
+            self.nCommands = numel( unSplitTable );
             
-            self.commandList = cellfun( @(c) regexp( c, ':', 'split' ), self.commandTable , 'UniformOutput', 0);
+            self.commandList = cellfun( @(c) regexp( c, ':', 'split' ), unSplitTable , 'UniformOutput', 0);
             
+            self.commandTable = cat(1, self.commandList{:} );
         end
-       
-        function makeFunctionFiles( self )
-            
-            for ii = 1:self.nCommands
-
-            f = getFnParams( self, ii );
-            
-                switch f.fnName
-                    case 'status'
-                        warning( 'status has not been written because it requires manual changes' )
-                    otherwise
-                        f.writeFile();
-                end
-            
-            end
-            
-        end
-    end
-    
-    methods (Access = private)
+        
         function fnFile = getFnParams( self, ii )
             
             f = functionFile;
             
             % get function names
-            f.fnName = cell2mat( self.commandList{ii}(1) );
-            
-            % if the name contains a symbol, remove this
-            f.fnName( regexp( f.fnName, '[^\w]' ) ) = [];
-            
-            % if the name already exists as a file, built in function,
-            % class etc (see doc exist) then change its name
-            if exist( lower(f.fnName) ) >= 2
-                f.fnName = strcat( 'pgm', f.fnName );
-            end
-            
-            % make the first letter lower case
-            f.fnName(1) = lower( f.fnName(1) );
+            f.fnName = self.newNameList{ii};
             
             f.nInputs = str2double( cell2mat( self.commandList{ii}(2) ) );
-            f.decID = str2double(cell2mat( self.commandList{ii}(3) ));
+            f.decID = str2double( cell2mat( self.commandList{ii}(3) ));
             
             % get the input variable names
             nameList = cell2mat( self.commandList{ii}(4) ); 
@@ -165,5 +164,34 @@ classdef SC2000commandMaker
             
             fnFile = f;
         end
+        
+        function self = getNewFnNames( self )
+            
+            self.newNameList = cell( numel(self.commandList), 1 );
+            
+            for ii=1:numel(self.commandList)
+            
+                % get function name
+                oldName = cell2mat( self.commandTable(ii,1) );
+            
+                newName = oldName;
+                % if the name contains a symbol, remove this
+                newName( regexp( newName, '[^\w]' ) ) = [];
+            
+                % if the name already exists as a file, built in function,
+                % class etc (see doc exist) then change its name
+                if exist( lower(newName) ) >= 2
+                    newName = strcat( 'pgm', newName );
+                end
+            
+                % make the first letter lower case
+            	newName(1) = lower( newName(1) );
+
+                self.newNameList{ii} = newName;
+            end
+
+        end
+        
+        
     end
 end

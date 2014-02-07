@@ -21,11 +21,12 @@ classdef functionFile
         
         communicatorObjName = 'self';
         serialObjName = 'serialObj';
-        rxName = 'rxData';
+        rxDataName = 'rxData';
         rxBytesName = 'rxBytes';
         commandBitName = 'commandBit';
         bitMode = '''uint8''';
         txDataName = 'txData';
+        converterFcnName = 'convert2leWord';
         
         fid
 
@@ -50,12 +51,8 @@ classdef functionFile
     methods (Access = private)
         function writeTopLine( self )
             
-            if self.rxDataBytes == 0
-                outputStr = '';
-            else
-                outputStr = sprintf( '%s = ', self.rxName );
-            end
-            
+            outputStr = sprintf( '%s = ', self.txDataName );
+                       
             %%%%%%%%%%%%%%%%%%%%
             % print function name
             inputStr = [ ' ', self.communicatorObjName, ', '];
@@ -98,11 +95,11 @@ classdef functionFile
             fprintf( self.fid, '\t%% For use in %s mode.\n', self.context );
             
             % print the number of bytes to be read
-            if self.rxDataBytes ~= 0
-                fprintf( self.fid, '\t%% %i bytes of rxData\n\n', self.rxDataBytes);
-            else
-                fprintf( self.fid, '\n' );
-            end
+%             if self.rxDataBytes ~= 0
+%                 fprintf( self.fid, '\t%% %i bytes of rxData\n\n', self.rxDataBytes);
+%             else
+%                 fprintf( self.fid, '\n' );
+%             end
             
             % print info
             fprintf( self.fid, '\t%% Generated automatically by functionFile.m class.\n' );
@@ -113,20 +110,20 @@ classdef functionFile
         
         function writeCommands( self )
             
-            fprintf( self.fid, '%s = %s.%s; \n', self.serialObjName, self.communicatorObjName, self.serialObjName );
+%             fprintf( self.fid, '%s = %s.%s; \n', self.serialObjName, self.communicatorObjName, self.serialObjName );
             fprintf( self.fid, '%s = %i; \n', self.commandBitName, self.decID );
             
-            if self.rxDataBytes ~= 0
-                fprintf( self.fid, '%s = %i; \n\n', self.rxBytesName, self.rxDataBytes );
-            else
-                fprintf( self.fid, '\n' );
-            end
+%             if self.rxDataBytes ~= 0
+%                 fprintf( self.fid, '%s = %i; \n\n', self.rxBytesName, self.rxDataBytes );
+%             else
+%                 fprintf( self.fid, '\n' );
+%             end
             
             strToWrite = [];
-            % one bit to send for each input
+            % two bytes to send for each input
             for kk = 1:self.nInputs
                 
-                fprintf( self.fid, 'b%i = hex2dec( reshape( dec2hex( %s, 4 ), 2, 2 ).'').'';\n' , kk, self.inputParams{kk});
+                fprintf( self.fid, 'b%i = %s.%s( %s );\n' , kk, self.communicatorObjName, self.converterFcnName, self.inputParams{kk});
                 strToWrite = sprintf( '%s, b%i', strToWrite, kk );
             
             end
@@ -140,13 +137,14 @@ classdef functionFile
             else
                 fprintf( self.fid, '%s = %s;\n\n', self.txDataName, self.commandBitName );
             end
-            fprintf( self.fid, 'fwrite( %s, %s, %s ); \n\n', self.serialObjName, self.txDataName, self.bitMode );
-             
-            % if there is an output, read it from the serial port
-            if self.rxDataBytes ~= 0
-                fprintf( self.fid, '%s = fread( %s, %s ); \n\n', self.rxName, self.serialObjName, self.rxBytesName );
-            end
             
+%             fprintf( self.fid, 'fwrite( %s, %s, %s ); \n\n', self.serialObjName, self.txDataName, self.bitMode );
+%              
+             % if there is an output, read it from the serial port
+%              if self.rxDataBytes ~= 0
+%                  fprintf( self.fid, '%s = fread( %s, %s ); \n\n', self.rxDataName, self.serialObjName, self.rxBytesName );
+%              end
+             
         end
         
     end

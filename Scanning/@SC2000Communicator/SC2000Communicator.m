@@ -5,9 +5,14 @@ classdef SC2000Communicator
     % 31.01.14. James Clegg.
     
     properties
+        
         baudRate = 115200;
         
         serialObj
+        
+        commandTable
+        commandList
+        
     end
     
     properties (Access = private)
@@ -27,6 +32,12 @@ classdef SC2000Communicator
             self.serialObj = serial( 'COM1', 'BaudRate', 2400 );
             set( self.serialObj, 'FlowControl', 'hardware' );
             set( self.serialObj, 'TimeOut', 1);
+            
+            % set up command information table
+            cMaker = SC2000commandMaker();
+            
+            self.commandTable = cMaker.commandTable;
+            self.commandList = cMaker.newNameList;
             
         end
         
@@ -59,7 +70,49 @@ classdef SC2000Communicator
         function self = delete( self )
             delete( self.serialObj ) 
         end
-                
+        
+        function varargout = exec( self, commandName, varargin )
+            
+            l = self.commandList;
+            t = self.commandTable;
+            
+            % find commandName in commandInfoTable
+            rowID = find( strcmpi( l, commandName ), 1 );
+            
+            % find out how many inputs and outputs are needed
+            nIn = str2double( t{ rowID, 2 });
+            nOut = str2double( t{ rowID, 6 });
+            
+            % check if length of varargin is the same as number of inputs
+            % needed
+            if numel( varargin ) ~= nIn
+                error( 'Wrong number of inputs' )
+            end
+            
+            % call the self.'commandName' with the supplied inputs
+            % continue here on 10 Feb 2013.
+            txData = eval( sprintf('self.%s()',varargin ) );
+            % write txData to the device
+            
+            % if the command has a return value then read it to varargout
+            
+        end
+    end
+    
+    methods (Static, Access = private)
+        function y = convert2leWord( x )
+           
+            % first deal with the sign
+            if x >= 0
+                y=x;
+            else
+                y = 2^16 + x;
+            end
+            
+            % now convert to a two element decimal
+            y = [ floor( y/256 ), mod( y, 256 ) ];
+            
+        end 
     end
     
 end

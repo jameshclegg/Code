@@ -1,0 +1,7 @@
+CreatePGM 1 'a'
+Slewxy 6000 6000 2000
+Slewxy 0 6000 2000
+Slewxy 0 0 2000
+Slewxy 6000 0 2000
+Repeat
+End
