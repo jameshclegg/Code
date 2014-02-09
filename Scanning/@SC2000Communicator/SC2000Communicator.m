@@ -31,10 +31,10 @@ classdef SC2000Communicator
                         
             self.serialObj = serial( 'COM1', 'BaudRate', 2400 );
             set( self.serialObj, 'FlowControl', 'hardware' );
-            set( self.serialObj, 'TimeOut', 1);
+            set( self.serialObj, 'TimeOut', 1 );
             
             % set up command information table
-            cMaker = SC2000commandMaker();
+            cMaker = SC2000CommandMaker();
             
             self.commandTable = cMaker.commandTable;
             self.commandList = cMaker.newNameList;
@@ -49,6 +49,7 @@ classdef SC2000Communicator
         end
         
         function self = setBaudRate( self, newRateDec )
+           % this still doesn't work!
            
            baudRates = 2400*[1 2 4 8 16 24 48];
            baudBytes =  num2str( (1:7).' );
@@ -63,6 +64,10 @@ classdef SC2000Communicator
            
         end
         
+        function sendBytes( self, txData )
+            fwrite( self.serialObj, txData, 'uint8' );
+        end
+        
         function self = close( self )
             fclose( self.serialObj );
         end
@@ -70,33 +75,7 @@ classdef SC2000Communicator
         function self = delete( self )
             delete( self.serialObj ) 
         end
-        
-        function varargout = exec( self, commandName, varargin )
-            
-            l = self.commandList;
-            t = self.commandTable;
-            
-            % find commandName in commandInfoTable
-            rowID = find( strcmpi( l, commandName ), 1 );
-            
-            % find out how many inputs and outputs are needed
-            nIn = str2double( t{ rowID, 2 });
-            nOut = str2double( t{ rowID, 6 });
-            
-            % check if length of varargin is the same as number of inputs
-            % needed
-            if numel( varargin ) ~= nIn
-                error( 'Wrong number of inputs' )
-            end
-            
-            % call the self.'commandName' with the supplied inputs
-            % continue here on 10 Feb 2013.
-            txData = eval( sprintf('self.%s()',varargin ) );
-            % write txData to the device
-            
-            % if the command has a return value then read it to varargout
-            
-        end
+  
     end
     
     methods (Static, Access = private)
@@ -104,13 +83,13 @@ classdef SC2000Communicator
            
             % first deal with the sign
             if x >= 0
-                y=x;
+                sx = x;
             else
-                y = 2^16 + x;
+                sx = 2^16 + x;
             end
             
             % now convert to a two element decimal
-            y = [ floor( y/256 ), mod( y, 256 ) ];
+            y = [ floor( sx/256 ), mod( sx, 256 ) ];
             
         end 
     end

@@ -1,4 +1,4 @@
-classdef SC2000commandMaker
+classdef SC2000CommandMaker
     %SC2000COMMANDMAKER
     %
     % 31st January 2014. JHC.
@@ -13,7 +13,7 @@ classdef SC2000commandMaker
     end
     
     methods
-        function self = SC2000commandMaker()
+        function self = SC2000CommandMaker()
             
             self = readInFile( self );
             self = getCommandList( self );
@@ -23,19 +23,11 @@ classdef SC2000commandMaker
         
         function self = makeFunctionFiles( self )
             
-            for ii = 1:self.nCommands
-
-            f = getFnParams( self, ii );
-            
-                switch f.fnName
-                    case 'status'
-                        warning( 'status has not been written because it requires manual changes' )
-                    otherwise
-                        f.writeFile();
-                end
-            
+            for ii = 1:self.nCommands     
+                f = getFnParams( self, ii );
+                f.writeFile();
             end
-            
+
         end
 
     end
@@ -75,7 +67,7 @@ classdef SC2000commandMaker
         
         function fnFile = getFnParams( self, ii )
             
-            f = functionFile;
+            f = functionWriter;
             
             % get function names
             f.fnName = self.newNameList{ii};
