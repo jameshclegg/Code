@@ -15,7 +15,7 @@ rxBytes = 0;
 
 
 
-b1 = self.convert2meWord( DBLWORD );
+b1 = self.convert2leWord( DBLWORD );
 txData = [ commandBit, b1 ];
 
 if txrxOpt 

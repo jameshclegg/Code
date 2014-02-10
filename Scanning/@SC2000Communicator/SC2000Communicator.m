@@ -91,7 +91,19 @@ classdef SC2000Communicator
             % now convert to a two element decimal
             y = [ floor( sx/256 ), mod( sx, 256 ) ];
             
-        end 
+        end
+        
+        function y = convert2meWord( x )
+            
+            hexList = reshape( dec2hex(x,8), 2, 4 ).';
+            decList = hex2dec( hexList );
+            
+            d = decList .' ;
+            
+            % now convert to middle endian
+            y = [d(3), d(4), d(1), d(2)];
+            
+        end
     end
     
 end
