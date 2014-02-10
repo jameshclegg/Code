@@ -1,0 +1,85 @@
+[10/02/2014 15:57:47] - Open port COM1 (D:\Program Files\MATLAB\R2012a\bin\win32\MATLAB.exe)	
+	
+[10/02/2014 15:57:47] - Close port COM1	
+	
+[10/02/2014 15:57:47] - Open port COM1 (D:\Program Files\MATLAB\R2012a\bin\win32\MATLAB.exe)	
+	
+[10/02/2014 15:58:02] Written data	
+    21 00 01 00 61 06 17 70 17 70 07 d0 06 00 00 17   !...a..p.p.–....	
+    70 07 d0 06 00 00 00 00                           p.–.....        	
+[10/02/2014 15:58:02] Written data	
+    07 d0 06 17 70 00 00 07 d0 09 16                  .–..p...–..     	
+[10/02/2014 15:58:12] Written data	
+    14 00 03                                          ...             	
+[10/02/2014 15:58:19] Written data	
+    1a                                                .               	
+[10/02/2014 15:58:52] Written data	
+    ff ff ff ff ff ff ff ff ff                        ˇˇˇˇˇˇˇˇˇ       	
+[10/02/2014 15:58:52] Read data	
+    00 00 00 21 00 27                                 ...!.'          	
+[10/02/2014 15:59:05] Written data	
+    15 00 03                                          ...             	
+[10/02/2014 15:59:08] Written data	
+    1a                                                .               	
+[10/02/2014 15:59:15] Written data	
+    14 00 03                                          ...             	
+[10/02/2014 15:59:48] Written data	
+    0e 00 61                                          ..a             	
+[10/02/2014 16:00:09] Written data	
+    ff ff ff ff ff ff ff ff ff                        ˇˇˇˇˇˇˇˇˇ       	
+[10/02/2014 16:00:09] Read data	
+    00 00 00 0e 00 11                                 ......          	
+[10/02/2014 16:00:25] Written data	
+    0e 00 61                                          ..a             	
+[10/02/2014 16:00:34] Written data	
+    ff ff ff ff ff ff ff ff ff                        ˇˇˇˇˇˇˇˇˇ       	
+[10/02/2014 16:00:34] Read data	
+    00 00 00 0e 00 11                                 ......          	
+[10/02/2014 16:00:45] - Close port COM1	
+	
+[10/02/2014 16:00:54] - Open port COM1 (D:\Program Files\MATLAB\R2012a\bin\win32\MATLAB.exe)	
+	
+[10/02/2014 16:00:54] - Close port COM1	
+	
+[10/02/2014 16:00:54] - Open port COM1 (D:\Program Files\MATLAB\R2012a\bin\win32\MATLAB.exe)	
+	
+[10/02/2014 16:00:59] Written data	
+    15 00 03                                          ...             	
+[10/02/2014 16:01:21] Written data	
+    0e 00 61                                          ..a             	
+[10/02/2014 16:01:24] Written data	
+    15 00 03                                          ...             	
+[10/02/2014 16:01:32] Written data	
+    ff ff ff ff ff ff ff ff ff                        ˇˇˇˇˇˇˇˇˇ       	
+[10/02/2014 16:01:32] Read data	
+    00 00 00 0e 00 11                                 ......          	
+[10/02/2014 16:01:38] - Close port COM1	
+	
+[10/02/2014 16:03:27] - Open port COM1 (D:\Program Files\GSI Lumonics\CLI2\bin\CLI.exe)	
+	
+[10/02/2014 16:03:37] Written data	
+    29                                                )               	
+[10/02/2014 16:03:37] Read data	
+    01 00 02 2e 02 03                                 ......          	
+[10/02/2014 16:03:44] Written data	
+    0e 00 61                                          ..a             	
+[10/02/2014 16:03:49] Written data	
+    ff ff ff ff ff ff ff ff ff                        ˇˇˇˇˇˇˇˇˇ       	
+[10/02/2014 16:03:49] Read data	
+    00 00 00 0e 00 11                                 ......          	
+[10/02/2014 16:05:38] Written data	
+    21 00 01 00 61 06 17 70 17 70 07 d0 06 00 00 17   !...a..p.p.–....	
+    70 07 d0 06 00 00 00 00 07 d0 06 17 70 00 00 07   p.–......–..p...	
+    d0 09 16 ca 81 4d 70                              –.. ÅMp         	
+[10/02/2014 16:06:13] Written data	
+    1a                                                .               	
+[10/02/2014 16:06:17] Written data	
+    14 00 03                                          ...             	
+[10/02/2014 16:06:23] Written data	
+    0e 00 61                                          ..a             	
+[10/02/2014 16:06:37] Written data	
+    25                                                %               	
+[10/02/2014 16:06:47] Written data	
+    15 00 03                                          ...             	
+[10/02/2014 16:06:53] - Close port COM1	
+	

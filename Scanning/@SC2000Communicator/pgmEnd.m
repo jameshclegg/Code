@@ -13,7 +13,7 @@ function [ txData, rxData ] = pgmEnd( self, txrxOpt )
 commandBit = 22; 
 rxBytes = 0; 
 
-txData = commandBit;
+txData = [ commandBit 255 255 255 255 ];
 
 if txrxOpt 
 	serialObj = self.serialObj; 

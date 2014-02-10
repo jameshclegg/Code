@@ -6,7 +6,7 @@ classdef SC2000Communicator
     
     properties
         
-        baudRate = 115200;
+        %baudRate = 115200;
         
         serialObj
         
