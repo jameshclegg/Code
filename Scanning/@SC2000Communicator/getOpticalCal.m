@@ -1,25 +1,24 @@
-function [ txData, rxData ] = position( self, txrxOpt, ABSPOS )
-	% POSITION
-	% Number of inputs: 3
+function [ txData, rxData ] = getOpticalCal( self, txrxOpt )
+	% GETOPTICALCAL
+	% Number of inputs: 2
 	%	Input 1: self.serialObj is an open serial port
 	%	Input 2: txrxOpt specifies if you want to transmit and receive data. 
-	%	Input 3: ABSPOS is an LEWORD
-	% For use in raster mode.
+
+	% For use in N/A mode.
 	% Generated automatically by functionWriter class.
 	% Source dictionary is at the end of SC2000 command reference document.
 
 	% 10 February 2014. James Clegg.
 
-commandBit = 1; 
-rxBytes = 0; 
+commandBit = 45; 
+rxBytes = 64; 
 
-b1 = self.convert2leWord( ABSPOS );
-txData = [ commandBit, b1 ];
+txData = commandBit;
 
 if txrxOpt 
 	serialObj = self.serialObj; 
 	fwrite( serialObj, txData, 'uint8' ); 
-	rxData = []; 
+	rxData = fread( serialObj, rxBytes ); 
 else 
 	rxData = []; 
 end 

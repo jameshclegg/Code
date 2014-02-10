@@ -8,12 +8,12 @@ function [ txData, rxData ] = pgmEnd( self, txrxOpt )
 	% Generated automatically by functionWriter class.
 	% Source dictionary is at the end of SC2000 command reference document.
 
-	% 09 February 2014. James Clegg.
+	% 10 February 2014. James Clegg.
 
 commandBit = 22; 
 rxBytes = 0; 
 
-txData = [ commandBit 255 255 255 255 ];
+txData = [ commandBit, 255, 255, 255, 255];
 
 if txrxOpt 
 	serialObj = self.serialObj; 

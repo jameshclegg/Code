@@ -40,14 +40,7 @@ classdef SC2000Communicator
             self.commandList = cMaker.newNameList;
             
         end
-        
-        function self = open( self )
-            
-           fopen( self.serialObj );
-           fprintf( 'Serial port is %s\n' , get( self.serialObj, 'Status' ))
-           
-        end
-        
+
         function self = setBaudRate( self, newRateDec )
            % this still doesn't work!
            
@@ -68,8 +61,14 @@ classdef SC2000Communicator
             fwrite( self.serialObj, txData, 'uint8' );
         end
         
+        function self = open( self )
+           fopen( self.serialObj );
+           fprintf( 'Serial port is %s\n' , get( self.serialObj, 'Status' ))
+        end
+        
         function self = close( self )
             fclose( self.serialObj );
+            fprintf( 'Serial port is %s\n' , get( self.serialObj, 'Status' ))
         end
         
         function self = delete( self )

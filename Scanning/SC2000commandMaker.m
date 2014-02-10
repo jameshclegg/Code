@@ -167,6 +167,12 @@ classdef SC2000CommandMaker
                 oldName = cell2mat( self.commandTable(ii,1) );
             
                 newName = oldName;
+                % if the name starts with a question mark, replace this
+                % with get
+                if regexp( newName, '^[?]' )
+                    newName = ['get', newName(2:end)];
+                end
+                
                 % if the name contains a symbol, remove this
                 newName( regexp( newName, '[^\w]' ) ) = [];
             

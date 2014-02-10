@@ -8,7 +8,7 @@ function [ txData, rxData ] = deltaPosition( self, txrxOpt, RELOFFSET )
 	% Generated automatically by functionWriter class.
 	% Source dictionary is at the end of SC2000 command reference document.
 
-	% 09 February 2014. James Clegg.
+	% 10 February 2014. James Clegg.
 
 commandBit = 3; 
 rxBytes = 0; 

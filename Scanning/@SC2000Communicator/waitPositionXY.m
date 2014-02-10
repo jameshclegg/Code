@@ -9,7 +9,7 @@ function [ txData, rxData ] = waitPositionXY( self, txrxOpt, xWORD, yWORD )
 	% Generated automatically by functionWriter class.
 	% Source dictionary is at the end of SC2000 command reference document.
 
-	% 09 February 2014. James Clegg.
+	% 10 February 2014. James Clegg.
 
 commandBit = 49; 
 rxBytes = 0; 

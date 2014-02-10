@@ -8,12 +8,10 @@ function [ txData, rxData ] = wait( self, txrxOpt, DBLWORD )
 	% Generated automatically by functionWriter class.
 	% Source dictionary is at the end of SC2000 command reference document.
 
-	% 09 February 2014. James Clegg.
+	% 10 February 2014. James Clegg.
 
 commandBit = 16; 
 rxBytes = 0; 
-
-
 
 b1 = self.convert2meWord( DBLWORD );
 txData = [ commandBit, b1 ];

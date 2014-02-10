@@ -26,7 +26,8 @@ classdef functionWriter
         commandBitName = 'commandBit';
         bitMode = '''uint8''';
         txDataName = 'txData';
-        converterFcnName = 'convert2leWord';
+        leConverterName = 'convert2leWord';
+        meConverterName = 'convert2meWord';
         txrxOptName = 'txrxOpt';
         
         fid
@@ -125,8 +126,15 @@ classdef functionWriter
             strToWrite = [];
             % call the converter function for each input and return a
             % variable name like b1, b2 etc
+            switch self.fnName
+                case 'wait'
+                    converterFcn = self.meConverterName;
+                otherwise
+                    converterFcn = self.leConverterName;
+            end
+            
             for kk = 1:self.nInputs
-                fprintf( self.fid, 'b%i = %s.%s( %s );\n' , kk, self.communicatorObjName, self.converterFcnName, self.inputParams{kk} );
+                fprintf( self.fid, 'b%i = %s.%s( %s );\n' , kk, self.communicatorObjName, converterFcn, self.inputParams{kk} );
                 strToWrite = sprintf( '%s, b%i', strToWrite, kk );
             end
             
@@ -137,6 +145,8 @@ classdef functionWriter
             switch self.fnName
                 case 'status'
                     fprintf( self.fid, '%s = repmat( %s, 1, 9 );\n\n', self.txDataName, self.commandBitName );
+                case 'pgmEnd'
+                    fprintf( self.fid, '%s = [ %s, 255, 255, 255, 255];\n\n', self.txDataName, self.commandBitName );
                 otherwise
                     % now assign the command bit and the b1, b2 etc to txData
                     if self.nInputs ~= 0
