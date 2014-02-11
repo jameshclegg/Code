@@ -1,38 +1,40 @@
+% DRAWBOXVECTOR
+%
+% draws a square using vector commands
+%
+% 11th Feb 2014. JHC.
 
 %%
 clear 
 close all
-%%
+%% input parameters
+% b is half of box side length
 b = 6000;
+% t is a time parameter.
 t = 200;
 name = 'a';
 
-%%
+%% create serial connection and open it
 c1 = SC2000Communicator;
-
-%%
 c1.open();
 
-%%
-nameD = double(name);
+%% send the program
+c1.createPgm( 1, name );
+c1.slewXY( b, b, t );
+c1.slewXY( -b, b, t );
+c1.slewXY( -b, -b, t );
+c1.slewXY( b, -b, t );
+c1.repeat();
+c1.pgmEnd();
 
-c1.createPgm( 1, 1, nameD );
-c1.slewXY( 1, b, b, t );
-c1.slewXY( 1, -b, b, t );
-c1.slewXY( 1, -b, -b, t );
-c1.slewXY( 1, b, -b, t );
-c1.repeat( 1 );
-c1.pgmEnd( 1 );
-
-%%
-
-c1.enable(1, 3);
-c1.vector(1)
-c1.executePgm( 1, nameD )
+%% enable the axes, execute the program
+c1.enable(3);
+c1.vector()
+c1.executePgm( name )
 %%
 
 %pause()
  
-%c1.exitPgm( 1 );
+%c1.exitPgm();
 
 %c1.close();

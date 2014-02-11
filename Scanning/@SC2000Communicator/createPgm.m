@@ -1,15 +1,14 @@
-function [ txData, rxData ] = createPgm( self, txrxOpt, PGMTYPE, PGMID )
+function [ txData, rxData ] = createPgm( self, PGMTYPE, PGMID )
 	% CREATEPGM
-	% Number of inputs: 4
+	% Number of inputs: 3
 	%	Input 1: self.serialObj is an open serial port
-	%	Input 2: txrxOpt specifies if you want to transmit and receive data. 
-	%	Input 3: PGMTYPE is an LEWORD
-	%	Input 4: PGMID is an LEWORD
+	%	Input 2: PGMTYPE is an LEWORD
+	%	Input 3: PGMID is an LEWORD
 	% For use in N/A mode.
 	% Generated automatically by functionWriter class.
 	% Source dictionary is at the end of SC2000 command reference document.
 
-	% 10 February 2014. James Clegg.
+	% 11 February 2014. James Clegg.
 
 commandBit = 33; 
 rxBytes = 0; 
@@ -18,11 +17,11 @@ b1 = self.convert2leWord( PGMTYPE );
 b2 = self.convert2leWord( PGMID );
 txData = [ commandBit, b1, b2 ];
 
-if txrxOpt 
+if self.transmit.statusB 
 	serialObj = self.serialObj; 
 	fwrite( serialObj, txData, 'uint8' ); 
 	rxData = []; 
-else 
+else
 	rxData = []; 
 end 
 

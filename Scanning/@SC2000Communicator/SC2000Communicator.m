@@ -13,6 +13,8 @@ classdef SC2000Communicator
         commandTable
         commandList
         
+        transmit = flagClass( 'on' );
+        
     end
     
     properties (Access = private)

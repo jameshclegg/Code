@@ -1,15 +1,14 @@
-function [ txData, rxData ] = deltaSlew( self, txrxOpt, RELOFFSET, COUNT )
+function [ txData, rxData ] = deltaSlew( self, RELOFFSET, COUNT )
 	% DELTASLEW
-	% Number of inputs: 4
+	% Number of inputs: 3
 	%	Input 1: self.serialObj is an open serial port
-	%	Input 2: txrxOpt specifies if you want to transmit and receive data. 
-	%	Input 3: RELOFFSET is an LEWORD
-	%	Input 4: COUNT is an LEWORD
+	%	Input 2: RELOFFSET is an LEWORD
+	%	Input 3: COUNT is an LEWORD
 	% For use in raster mode.
 	% Generated automatically by functionWriter class.
 	% Source dictionary is at the end of SC2000 command reference document.
 
-	% 10 February 2014. James Clegg.
+	% 11 February 2014. James Clegg.
 
 commandBit = 7; 
 rxBytes = 0; 
@@ -18,11 +17,11 @@ b1 = self.convert2leWord( RELOFFSET );
 b2 = self.convert2leWord( COUNT );
 txData = [ commandBit, b1, b2 ];
 
-if txrxOpt 
+if self.transmit.statusB 
 	serialObj = self.serialObj; 
 	fwrite( serialObj, txData, 'uint8' ); 
 	rxData = []; 
-else 
+else
 	rxData = []; 
 end 
 
