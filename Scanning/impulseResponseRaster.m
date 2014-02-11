@@ -15,10 +15,12 @@ close all
 
 %% parameters
 
-sweepSize = 6000;
-stepSize = 6000;
+testAxis = 'x';
 
-t = 2000;
+sweepSize = 8000;
+stepSize = 3000;
+
+t = 250;
 t1 = round(t/2);
 t2 = t - t1;
 
@@ -39,15 +41,28 @@ c1.pgmEnd();
 %% create the step program
 c1.createPgm( 0, nameStep );
 c1.position( 0 );
-c1.wait( t1 );
+c1.wait( t1-1 );
 c1.position( stepSize );
+c1.wait( t2-1 );
+c1.wait( t1-1 );
+c1.position( 0 );
 c1.wait( t2 );
 c1.repeat();
 c1.pgmEnd();
 
 %% 
 c1.enable(3);
-c1.executeRasterPgm( nameStep, nameRepeat );
+switch testAxis
+    case 'x'
+        arg1 = nameStep;
+        arg2 = nameRepeat;
+    case 'y'
+        arg1 = nameRepeat;
+        arg2 = nameStep;
+end
+
+c1.executeRasterPgm( arg1, arg2 );
+
 %%
 
 %pause()

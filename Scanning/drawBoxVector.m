@@ -29,8 +29,8 @@ c1.pgmEnd();
 
 %% enable the axes, execute the program
 c1.enable(3);
-c1.vector()
-c1.executePgm( name )
+c1.vector();
+c1.executePgm( name );
 %%
 
 %pause()
