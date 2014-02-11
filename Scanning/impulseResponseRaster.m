@@ -20,8 +20,8 @@ testAxis = 'x';
 sweepSize = 8000;
 stepSize = 3000;
 
-t = 250;
-t1 = round(t/2);
+t = 300;
+t1 = round(t/3);
 t2 = t - t1;
 
 nameRepeat = 'r';
@@ -44,9 +44,9 @@ c1.position( 0 );
 c1.wait( t1-1 );
 c1.position( stepSize );
 c1.wait( t2-1 );
-c1.wait( t1-1 );
+c1.wait( t1 );
 c1.position( 0 );
-c1.wait( t2 );
+c1.wait( t2-1 );
 c1.repeat();
 c1.pgmEnd();
 
