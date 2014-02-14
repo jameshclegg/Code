@@ -9,7 +9,7 @@ function [ txData, rxData ] = iftempokexecuterasterpgm( self, DEVICEID, xPGMID, 
 	% Generated automatically by functionWriter class.
 	% Source dictionary is at the end of SC2000 command reference document.
 
-	% 11 February 2014. James Clegg.
+	% 14 February 2014. James Clegg.
 
 commandBit = 13; 
 rxBytes = 0; 

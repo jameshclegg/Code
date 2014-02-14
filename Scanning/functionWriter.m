@@ -158,9 +158,9 @@ classdef functionWriter
             
             % deal with the special cases
             switch self.fnName
-                case 'status'
+                case 'getStatus'
                     fprintf( self.fid, '%s = repmat( %s, 1, 9 );\n\n', self.txDataName, self.commandBitName );
-                case 'pgmEnd'
+                case 'end'
                     % perhaps I should implement the checksum properly?
                     fprintf( self.fid, '%s = [ %s, 255, 255, 255, 255];\n\n', self.txDataName, self.commandBitName );
                 otherwise

@@ -61,7 +61,7 @@ c1.positionXY( p(5,1), p(5,2) );
 c1.slewXY( p(6,1), p(6,2), 2*t );
 
 c1.repeat();
-c1.pgmEnd();
+c1.end();
 
 %%
 

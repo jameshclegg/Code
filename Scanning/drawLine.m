@@ -10,7 +10,7 @@ close all
 
 %% input parameters
 % b is half of box side length
-b = 6000;
+b = 1000;
 % t is a time parameter.
 t = 200;
 name = 'a';
@@ -21,10 +21,10 @@ c1.open();
 
 %% send the program
 c1.createPgm( 1, name );
-c1.slewXY( b, 0, t );
-c1.slewXY( -b, 0, t );
+c1.slewXY( 0, -b, t );
+c1.slewXY( 0, 0, t );
 c1.repeat();
-c1.pgmEnd();
+c1.end();
 
 %% enable the axes, execute the program
 c1.enable( 3 );
@@ -32,8 +32,8 @@ c1.vector();
 c1.executePgm( name );
 
 %%
-%pause()
+pause()
  
-%c1.exitPgm();
-
-%c1.close();
+c1.exitPgm();
+c1.disable(3);
+c1.close();

@@ -8,7 +8,7 @@ function [ txData, rxData ] = positionXY( self, xABSPOS, yABSPOS )
 	% Generated automatically by functionWriter class.
 	% Source dictionary is at the end of SC2000 command reference document.
 
-	% 11 February 2014. James Clegg.
+	% 14 February 2014. James Clegg.
 
 commandBit = 2; 
 rxBytes = 0; 

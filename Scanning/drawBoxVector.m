@@ -25,7 +25,7 @@ c1.slewXY( -b, b, t );
 c1.slewXY( -b, -b, t );
 c1.slewXY( b, -b, t );
 c1.repeat();
-c1.pgmEnd();
+c1.end();
 
 %% enable the axes, execute the program
 c1.enable(3);

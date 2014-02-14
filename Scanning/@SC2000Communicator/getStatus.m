@@ -1,23 +1,23 @@
-function [ txData, rxData ] = pgmEnd( self )
-	% PGMEND
+function [ txData, rxData ] = getStatus( self )
+	% GETSTATUS
 	% Number of inputs: 1
 	%	Input 1: self.serialObj is an open serial port
 
-	% For use in vector and raster mode.
+	% For use in N/A mode.
 	% Generated automatically by functionWriter class.
 	% Source dictionary is at the end of SC2000 command reference document.
 
-	% 11 February 2014. James Clegg.
+	% 14 February 2014. James Clegg.
 
-commandBit = 22; 
-rxBytes = 0; 
+commandBit = 255; 
+rxBytes = 6; 
 
-txData = [ commandBit, 255, 255, 255, 255];
+txData = repmat( commandBit, 1, 9 );
 
 if self.transmit.statusB 
 	serialObj = self.serialObj; 
 	fwrite( serialObj, txData, 'uint8' ); 
-	rxData = []; 
+	rxData = fread( serialObj, rxBytes ); 
 else
 	rxData = []; 
 end 

@@ -175,13 +175,7 @@ classdef SC2000CommandMaker
                 
                 % if the name contains a symbol, remove this
                 newName( regexp( newName, '[^\w]' ) ) = [];
-            
-                % if the name already exists as a file, built in function,
-                % class etc (see doc exist) then change its name
-                if exist( lower(newName) ) >= 2
-                    newName = strcat( 'pgm', newName );
-                end
-            
+                      
                 % make the first letter lower case
             	newName(1) = lower( newName(1) );
 

@@ -68,7 +68,7 @@ c1.slewXY( p(5,1), p(5,2), ts(5) );
 c1.slewXY( p(6,1), p(6,2), ts(6) );
 
 c1.repeat();
-c1.pgmEnd();
+c1.end();
 
 %%
 

@@ -1,3 +1,4 @@
+function c = impulseResponseRaster( testAxis, t, sweepSize, stepSize )
 % IMPULSERESPONSERASTER
 %
 % Draws a step shape on one axis with a sweep on the other. Tests the
@@ -8,50 +9,57 @@
 % raster functions to stay synchronised.
 %
 % 10th Feb 2014. JHC.
+% 12th Feb 2014. JHC. Changed to function.
 
-%%
-clear 
-close all
+% parameters
+if isempty( t )
+    t = 300;
+end
 
-%% parameters
+if isempty( sweepSize )
+   sweepSize = 8000;
+end
 
-testAxis = 'x';
+if isempty( stepSize )
+    stepSize = 3000;
+end
 
-sweepSize = 8000;
-stepSize = 3000;
-
-t = 300;
 t1 = round(t/3);
 t2 = t - t1;
+tWait = round(t/10);
 
 nameRepeat = 'r';
 nameStep = 's';
 
 %%
-c1 = SC2000Communicator;
-c1.open();
+c = SC2000Communicator;
+c.open();
 
 %% create the sweep program
-c1.createPgm( 0, nameRepeat );
-c1.slew( sweepSize, t );
-c1.slew( -sweepSize, t );
-c1.repeat();
-c1.pgmEnd();
+c.createPgm( 0, nameRepeat );
+c.wait( tWait );
+c.slew( sweepSize, t );
+c.wait( tWait );
+c.slew( -sweepSize, t );
+c.repeat();
+c.end();
 
 %% create the step program
-c1.createPgm( 0, nameStep );
-c1.position( 0 );
-c1.wait( t1-1 );
-c1.position( stepSize );
-c1.wait( t2-1 );
-c1.wait( t1 );
-c1.position( 0 );
-c1.wait( t2-1 );
-c1.repeat();
-c1.pgmEnd();
+c.createPgm( 0, nameStep );
+c.wait( tWait );
+c.position( -stepSize );
+c.wait( t1-1 );
+c.position( stepSize );
+c.wait( t2-1 );
+c.wait( tWait );
+c.wait( t1 );
+c.position( -stepSize );
+c.wait( t2-1 );
+c.repeat();
+c.end();
 
 %% 
-c1.enable(3);
+
 switch testAxis
     case 'x'
         arg1 = nameStep;
@@ -61,7 +69,7 @@ switch testAxis
         arg2 = nameStep;
 end
 
-c1.executeRasterPgm( arg1, arg2 );
+c.executeRasterPgm( arg1, arg2 );
 
 %%
 
@@ -70,3 +78,5 @@ c1.executeRasterPgm( arg1, arg2 );
 %c1.exitPgm();
 
 %c1.close();
+
+end
