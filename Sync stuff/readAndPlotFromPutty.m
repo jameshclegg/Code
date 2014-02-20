@@ -28,4 +28,11 @@ ylim( [-0.1, 1.1] )
 title( sprintf( 'On: %.3f ms, Off: %.3f ms', tOn, tOff ) );
 
 figure()
-plot( t(1:end-1), diff(t) )
+dTus = 1e3*diff(t);
+plot( t(1:end-1), dTus, 'k' )
+xLims = get(gca,'XLim');
+meanSampleTime = mean( dTus );
+line( xLims, meanSampleTime*[1 1], 'LineStyle', '-.', 'Color', 'r', 'LineWidth', 2 )
+xlabel( 'time / ms' )
+ylabel( 'time between samples / \mus' )
+title( sprintf( 'Mean sample time: %.1f us', meanSampleTime ) )

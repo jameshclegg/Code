@@ -38,7 +38,7 @@ void setup()
 void loop() {
    
   // read from the sensor:  
-  readings[index] = (byte) digitalRead( slmInput );
+  readings[index] = digitalRead( slmInput );
   readingTimes[index] = (int) micros();
       
   // advance to the next position in the array:  
