@@ -25,14 +25,11 @@
 // the more the readings will be smoothed, but the slower the output will
 // respond to the input.  Using a constant rather than a normal variable lets
 // use this value to determine the size of the readings array.
-const int numReadings = 600;
+const int numReadings = 250;
 
 int readings[numReadings];      // the readings from the analog input
 int index = 0;                  // the index of the current reading
-int total = 0;                  // the running total
-int average = 0;                // the average
 int inputPin = A0;
-int ii = 0;
 
 void setup()
 {
@@ -53,10 +50,7 @@ void loop() {
 
   // if we're at the end of the array...
   if (index >= numReadings)
-{  
-    // ...wrap around to the beginning: 
-    index = 0;
-   
+{   
     int ii;
     for (ii = 0; ii < numReadings; ii = ii++) 
     {
