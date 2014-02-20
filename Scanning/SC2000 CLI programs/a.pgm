@@ -1,5 +1,0 @@
-CreatePGM 1 'a'
-Slewxy 10000 10000 32000
-Slewxy -10000 -10000 32000
-Repeat
-End
